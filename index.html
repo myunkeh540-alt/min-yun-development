@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Min Yun Development builds modern websites, web applications and digital solutions for businesses and founders.">
+  <meta name="theme-color" content="#f7faff">
+  <title>Min Yun Development — Build Your Ideas Into Reality</title>
+  <style>
+    :root {
+      --blue: #2563eb;
+      --blue-dark: #1746b5;
+      --ink: #101828;
+      --muted: #667085;
+      --line: #e5eaf2;
+      --surface: #ffffff;
+      --soft: #f3f7ff;
+      --radius: 22px;
+      --shadow: 0 18px 55px rgba(31, 67, 130, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    .container { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.88);
+      backdrop-filter: blur(16px); border-bottom: 1px solid rgba(229,234,242,.85);
+    }
+    .nav { min-height: 76px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:800; letter-spacing:-.04em; }
+    .brand-mark {
+      width: 38px; height: 38px; display:grid; place-items:center; border-radius:12px;
+      color:white; background:linear-gradient(145deg,#4386ff,#1746b5); font-size:15px;
+      box-shadow:0 7px 18px rgba(37,99,235,.24);
+    }
+    .brand-name { font-size:16px; }
+    .nav-links { display:flex; align-items:center; gap:30px; color:#475467; font-size:14px; font-weight:600; }
+    .nav-links a:hover { color:var(--blue); }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:9px; border:0;
+      border-radius:12px; padding:13px 19px; background:var(--blue); color:#fff;
+      font-weight:700; font-size:14px; cursor:pointer; transition:.2s ease;
+      box-shadow:0 8px 20px rgba(37,99,235,.18);
+    }
+    .btn:hover { background:var(--blue-dark); transform:translateY(-2px); }
+    .btn.secondary { color:var(--ink); background:#fff; border:1px solid var(--line); box-shadow:none; }
+    .btn.secondary:hover { border-color:#b7cbf8; color:var(--blue); }
+    .menu-toggle { display:none; border:1px solid var(--line); background:white; border-radius:10px; padding:9px 12px; }
+    .hero {
+      position:relative; overflow:hidden; padding:104px 0 92px;
+      background:radial-gradient(circle at 82% 26%,rgba(87,145,255,.15),transparent 28%),
+                 radial-gradient(circle at 12% 80%,rgba(37,99,235,.07),transparent 30%),
+                 linear-gradient(180deg,#f7faff 0%,#fff 100%);
+    }
+    .hero-grid { display:grid; grid-template-columns:1.08fr .92fr; gap:64px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border:1px solid #d9e6ff; background:#eef4ff; color:#2456bb; border-radius:99px; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+    .dot { width:7px; height:7px; background:#2f70ed; border-radius:50%; }
+    h1 { margin:22px 0 18px; font-size:clamp(42px,6vw,68px); line-height:1.04; letter-spacing:-.065em; max-width:680px; }
+    h1 span { color:var(--blue); }
+    .hero-copy { color:var(--muted); font-size:18px; max-width:570px; margin:0 0 29px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; }
+    .trust-line { margin-top:29px; color:#7b8798; font-size:13px; }
+    .visual-wrap { position:relative; min-height:390px; display:grid; place-items:center; }
+    .orb { position:absolute; width:340px; height:340px; border-radius:50%; background:linear-gradient(140deg,#e2edff,#f8fbff); filter:blur(1px); }
+    .browser-card {
+      position:relative; width:min(100%,440px); border:1px solid #e2e9f4; background:#fff;
+      border-radius:18px; box-shadow:0 30px 80px rgba(34,73,140,.17); overflow:hidden;
+      transform:rotate(2deg);
+    }
+    .browser-head { height:43px; border-bottom:1px solid #edf0f5; display:flex; align-items:center; padding:0 15px; gap:6px; }
+    .browser-head i { width:8px; height:8px; border-radius:50%; background:#d8dfeb; }
+    .browser-url { margin-left:10px; height:19px; width:48%; border-radius:5px; background:#f3f6fa; }
+    .mock-page { padding:25px; }
+    .mock-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+    .mock-logo { width:78px; height:9px; border-radius:8px; background:#1d355d; }
+    .mock-menu { display:flex; gap:8px; }
+    .mock-menu b { display:block; width:25px; height:5px; border-radius:5px; background:#d5deec; }
+    .mock-tag { width:88px; height:17px; border-radius:9px; background:#eaf1ff; margin-bottom:13px; }
+    .mock-title { width:88%; height:17px; border-radius:5px; background:#19345f; margin-bottom:9px; }
+    .mock-title.short { width:61%; background:#3476ed; }
+    .mock-text { width:75%; height:7px; border-radius:5px; background:#e2e8f1; margin:17px 0 20px; }
+    .mock-cta { width:105px; height:29px; border-radius:7px; background:#3476ed; }
+    .mock-bottom { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:30px; }
+    .mock-tile { height:84px; border-radius:10px; background:linear-gradient(145deg,#edf4ff,#f8faff); border:1px solid #e8effa; }
+    .float-chip { position:absolute; z-index:2; background:#fff; border:1px solid #e7edf7; box-shadow:var(--shadow); padding:13px 16px; border-radius:13px; font-size:12px; font-weight:800; }
+    .float-chip.one { top:45px; right:-3px; color:#2156bd; }
+    .float-chip.two { bottom:37px; left:-15px; color:#344054; }
+    section { padding:88px 0; }
+    .section-head { max-width:660px; margin:0 auto 43px; text-align:center; }
+    .kicker { color:var(--blue); text-transform:uppercase; letter-spacing:.12em; font-size:11px; font-weight:800; }
+    h2 { font-size:clamp(30px,4vw,43px); letter-spacing:-.05em; line-height:1.12; margin:12px 0; }
+    .section-head p, .muted { color:var(--muted); }
+    .services { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .service-card { padding:27px; border:1px solid var(--line); border-radius:var(--radius); background:#fff; transition:.2s ease; }
+    .service-card:hover { transform:translateY(-5px); border-color:#c9d9fa; box-shadow:var(--shadow); }
+    .icon-box { width:47px; height:47px; display:grid; place-items:center; border-radius:14px; color:var(--blue); background:#edf4ff; font-size:21px; }
+    .service-card h3 { margin:19px 0 8px; font-size:18px; letter-spacing:-.03em; }
+    .service-card p { margin:0; color:var(--muted); font-size:14px; }
+    .service-card ul { margin:16px 0 0; padding-left:18px; color:#475467; font-size:13px; }
+    .portfolio-section { background:#f7f9fc; }
+    .project-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .project { border:1px solid var(--line); background:white; border-radius:18px; overflow:hidden; }
+    .project-art { min-height:185px; padding:22px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#eaf2ff,#f8fbff); }
+    .project-art.dark { background:linear-gradient(135deg,#101b36,#203c70); }
+    .project-art.purple { background:linear-gradient(135deg,#eef0ff,#f9f7ff); }
+    .mini-window { width:100%; max-width:270px; padding:14px; border-radius:12px; background:#fff; box-shadow:0 12px 35px rgba(20,48,100,.15); }
+    .mini-window.dark-window { background:#172642; color:white; }
+    .mini-bar { display:flex; gap:4px; margin-bottom:13px; }
+    .mini-bar i { width:5px;height:5px;border-radius:50%;background:#aab8ce; }
+    .mini-line { height:7px; border-radius:5px; background:#dce6f5; margin:8px 0; width:82%; }
+    .mini-line.blue { background:#5c91f2; width:57%; }
+    .mini-blocks { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-top:13px; }
+    .mini-blocks b { height:36px; border-radius:5px; background:#edf3fd; }
+    .project-body { padding:22px; }
+    .project-type { color:var(--blue); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; }
+    .project h3 { margin:7px 0; font-size:19px; letter-spacing:-.03em; }
+    .project p { margin:0; color:var(--muted); font-size:13px; }
+    .project-status { display:inline-block; margin-top:14px; padding:5px 9px; border-radius:99px; background:#f2f4f7; color:#667085; font-size:10px; font-weight:700; }
+    .process-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .step { border-top:2px solid #d9e5fb; padding-top:18px; }
+    .step-num { color:var(--blue); font-size:12px; font-weight:900; letter-spacing:.08em; }
+    .step h3 { margin:9px 0 7px; font-size:17px; }
+    .step p { color:var(--muted); font-size:13px; margin:0; }
+    .cta-band { background:linear-gradient(120deg,#1746b5,#3478ed); color:white; border-radius:26px; padding:48px; display:flex; justify-content:space-between; align-items:center; gap:28px; }
+    .cta-band h2 { max-width:570px; margin:0 0 9px; }
+    .cta-band p { color:#dbe8ff; margin:0; }
+    .cta-band .btn { background:white; color:#1746b5; box-shadow:none; white-space:nowrap; }
+    .contact-section { background:#f7f9fc; }
+    .contact-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:55px; align-items:start; }
+    .contact-copy h2 { margin-top:12px; }
+    .contact-method { display:flex; align-items:center; gap:13px; margin-top:20px; color:#475467; font-size:14px; }
+    .contact-method span { width:38px; height:38px; border-radius:11px; background:#eaf1ff; display:grid; place-items:center; color:var(--blue); }
+    form { padding:28px; background:#fff; border:1px solid var(--line); border-radius:20px; box-shadow:0 12px 35px rgba(20,48,100,.05); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    label { display:block; font-size:12px; font-weight:700; color:#344054; margin:0 0 7px; }
+    .field { margin-bottom:16px; }
+    input, select, textarea { width:100%; padding:12px 13px; border:1px solid #dce3ed; border-radius:10px; outline:none; color:var(--ink); background:white; font-size:13px; }
+    input:focus, select:focus, textarea:focus { border-color:#80a8f8; box-shadow:0 0 0 3px #eaf1ff; }
+    textarea { min-height:110px; resize:vertical; }
+    .form-note { margin:12px 0 0; color:#98a2b3; font-size:11px; }
+    .form-message { display:none; margin-top:13px; padding:12px; border-radius:10px; background:#eef4ff; color:#1746b5; font-size:13px; }
+    footer { padding:28px 0; border-top:1px solid var(--line); }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; align-items:center; color:#98a2b3; font-size:12px; }
+    .footer-links { display:flex; gap:20px; }
+    @media (max-width: 850px) {
+      .hero-grid { grid-template-columns:1fr; gap:30px; }
+      .visual-wrap { min-height:330px; }
+      .services,.project-grid { grid-template-columns:repeat(2,1fr); }
+      .process-grid { grid-template-columns:repeat(2,1fr); row-gap:28px; }
+      .contact-grid { grid-template-columns:1fr; gap:28px; }
+    }
+    @media (max-width: 620px) {
+      .container { width:min(100% - 32px, 1140px); }
+      .nav { min-height:66px; }
+      .nav-links { display:none; position:absolute; top:66px; left:0; right:0; padding:18px 22px 22px; background:white; border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start; gap:17px; }
+      .nav-links.open { display:flex; }
+      .nav > .btn { display:none; }
+      .menu-toggle { display:block; }
+      .hero { padding:68px 0 58px; }
+      .hero-copy { font-size:16px; }
+      .visual-wrap { min-height:280px; }
+      .orb { width:250px; height:250px; }
+      .float-chip.one { right:0; top:15px; }
+      .float-chip.two { left:0; bottom:10px; }
+      section { padding:65px 0; }
+      .services,.project-grid { grid-template-columns:1fr; }
+      .process-grid { grid-template-columns:1fr 1fr; }
+      .cta-band { padding:30px 24px; align-items:flex-start; flex-direction:column; }
+      .form-row { grid-template-columns:1fr; gap:0; }
+      form { padding:21px; }
+      .footer-inner { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Min Yun Development home">
+        <span class="brand-mark">MY</span><span class="brand-name">Min Yun Development</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#services">Services</a><a href="#work">Portfolio</a><a href="#process">Process</a><a href="#contact">Contact</a>
+      </nav>
+      <a class="btn" href="#contact">Let's Talk <span>↗</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Independent Developer · Malaysia</div>
+          <h1>Build Your Ideas <span>Into Reality.</span></h1>
+          <p class="hero-copy">I design and develop modern websites and digital solutions that help businesses move forward. Have an idea? Let's turn it into something real.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Start a Project <span>↗</span></a>
+            <a class="btn secondary" href="#work">Explore My Work</a>
+          </div>
+          <p class="trust-line">Thoughtful design. Practical technology. Solutions built around your goals.</p>
+        </div>
+        <div class="visual-wrap" aria-label="Illustration of a modern website interface">
+          <div class="orb"></div>
+          <div class="float-chip one">✦ Modern digital experiences</div>
+          <div class="browser-card">
+            <div class="browser-head"><i></i><i></i><i></i><div class="browser-url"></div></div>
+            <div class="mock-page">
+              <div class="mock-nav"><div class="mock-logo"></div><div class="mock-menu"><b></b><b></b><b></b></div></div>
+              <div class="mock-tag"></div><div class="mock-title"></div><div class="mock-title short"></div>
+              <div class="mock-text"></div><div class="mock-cta"></div>
+              <div class="mock-bottom"><div class="mock-tile"></div><div class="mock-tile"></div><div class="mock-tile"></div></div>
+            </div>
+          </div>
+          <div class="float-chip two">⌘ Design + Development</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head"><div class="kicker">What I do</div><h2>Digital solutions for your next big idea.</h2><p>From a clean business website to a custom web application, get a solution shaped around what you actually need.</p></div>
+        <div class="services">
+          <article class="service-card"><div class="icon-box">▣</div><h3>Website Development</h3><p>Professional, responsive websites that introduce your brand and turn visitors into enquiries.</p><ul><li>Business & portfolio websites</li><li>Landing pages</li><li>Product and service websites</li></ul></article>
+          <article class="service-card"><div class="icon-box">⌘</div><h3>Web Application</h3><p>Custom online systems that simplify workflows and help your business run more efficiently.</p><ul><li>Booking & management systems</li><li>Admin dashboards</li><li>Database-powered applications</li></ul></article>
+          <article class="service-card"><div class="icon-box">▯</div><h3>Mobile App Development</h3><p>App concepts and mobile experiences planned around your users, features and business goals.</p><ul><li>App UI and prototypes</li><li>Cross-platform solutions</li><li>Feature and scope planning</li></ul></article>
+          <article class="service-card"><div class="icon-box">✳</div><h3>AI Integration</h3><p>Bring useful AI capabilities into your product with practical, user-focused integrations.</p><ul><li>AI assistants and chat features</li><li>Workflow automation</li><li>AI-powered product features</li></ul></article>
+          <article class="service-card"><div class="icon-box">◇</div><h3>UI/UX Design</h3><p>Clear, intuitive interfaces that help users understand what to do and enjoy doing it.</p><ul><li>Website & app UI design</li><li>Figma prototypes</li><li>User flows and wireframes</li></ul></article>
+          <article class="service-card"><div class="icon-box">⌁</div><h3>Backend & Database</h3><p>Reliable foundations for applications, from data structure to server-side functionality.</p><ul><li>API development</li><li>Database design</li><li>System integrations</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio-section" id="work">
+      <div class="container">
+        <div class="section-head"><div class="kicker">Selected work</div><h2>Ideas I'm bringing to life.</h2><p>A selection of product concepts and development work. Project status is shown transparently.</p></div>
+        <div class="project-grid">
+          <article class="project">
+            <div class="project-art"><div class="mini-window"><div class="mini-bar"><i></i><i></i><i></i></div><div class="mini-line blue"></div><div class="mini-line"></div><div class="mini-line" style="width:65%"></div><div class="mini-blocks"><b></b><b></b><b></b></div></div></div>
+            <div class="project-body"><div class="project-type">AI · Creative Tools</div><h3>QuickCut</h3><p>An AI-assisted video editing product concept focused on simplifying the editing workflow.</p><span class="project-status">In development</span></div>
+          </article>
+          <article class="project">
+            <div class="project-art dark"><div class="mini-window dark-window"><div class="mini-bar"><i></i><i></i><i></i></div><div class="mini-line blue"></div><div class="mini-line" style="background:#435777"></div><div class="mini-blocks"><b style="background:#29446f"></b><b style="background:#29446f"></b><b style="background:#29446f"></b></div></div></div>
+            <div class="project-body"><div class="project-type">E-commerce · AI</div><h3>ClothOS</h3><p>A fashion commerce concept combining an online storefront with AI-assisted shopping experiences.</p><span class="project-status">Planning & design</span></div>
+          </article>
+          <article class="project">
+            <div class="project-art purple"><div class="mini-window"><div class="mini-bar"><i></i><i></i><i></i></div><div class="mini-line" style="width:45%;background:#8b7ce8"></div><div class="mini-blocks"><b style="background:#eeebff"></b><b style="background:#eeebff"></b><b style="background:#eeebff"></b></div><div class="mini-line" style="width:92%"></div><div class="mini-line" style="width:70%"></div></div></div>
+            <div class="project-body"><div class="project-type">Business · Management</div><h3>VentureTrack</h3><p>A deal tracking and investment information management system concept.</p><span class="project-status">Project work</span></div>
+          </article>
+        </div>
+        <p class="muted" style="font-size:11px;text-align:center;margin-top:20px">Portfolio descriptions reflect project concepts and current development stages, not claims of completed commercial deployments.</p>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head"><div class="kicker">How it works</div><h2>A clear process, from idea to launch.</h2><p>You'll know what we're building, what happens next and what to expect at each stage.</p></div>
+        <div class="process-grid">
+          <div class="step"><div class="step-num">01 / DISCOVER</div><h3>Understand your idea</h3><p>We discuss your goals, users, required features, budget and timeline.</p></div>
+          <div class="step"><div class="step-num">02 / PLAN & DESIGN</div><h3>Map out the solution</h3><p>Agree on the scope and shape the user experience before development.</p></div>
+          <div class="step"><div class="step-num">03 / DEVELOP</div><h3>Build and review</h3><p>Develop the agreed features and share progress for feedback.</p></div>
+          <div class="step"><div class="step-num">04 / DELIVER</div><h3>Launch with confidence</h3><p>Test, deploy and hand over the agreed deliverables.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:10px;padding-bottom:88px">
+      <div class="container">
+        <div class="cta-band"><div><h2>Have an idea? Let's make it happen.</h2><p>Tell me what you're planning. We'll work out the right next step together.</p></div><a class="btn" href="#contact">Discuss Your Project ↗</a></div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <div class="kicker">Get in touch</div><h2>Let's talk about your project.</h2>
+          <p class="muted">Share a few details about what you need. I'll review your enquiry and get back to you.</p>
+          <div class="contact-method"><span>✉</span><div><strong>Email</strong><br><span class="muted">Add your email address in the site settings</span></div></div>
+          <div class="contact-method"><span>◉</span><div><strong>WhatsApp</strong><br><span class="muted">Add your WhatsApp number in the site settings</span></div></div>
+          <div class="contact-method"><span>⌖</span><div><strong>Based in Malaysia</strong><br><span class="muted">Available for remote projects</span></div></div>
+        </div>
+        <form id="inquiryForm">
+          <div class="form-row">
+            <div class="field"><label for="name">Your name *</label><input id="name" name="name" placeholder="e.g. Alex Tan" required></div>
+            <div class="field"><label for="email">Email address *</label><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="service">What do you need? *</label><select id="service" name="service" required><option value="">Select a service</option><option>Website Development</option><option>Web Application</option><option>Mobile App Development</option><option>AI Integration</option><option>UI/UX Design</option><option>Backend & Database</option><option>Not sure yet</option></select></div>
+            <div class="field"><label for="budget">Estimated budget</label><select id="budget" name="budget"><option value="">Choose a range</option><option>Below RM500</option><option>RM500–RM1,500</option><option>RM1,500–RM3,000</option><option>RM3,000–RM5,000</option><option>RM5,000+</option><option>Need advice</option></select></div>
+          </div>
+          <div class="field"><label for="details">Tell me about your project *</label><textarea id="details" name="details" placeholder="What are you trying to build? Any features, references or target launch date?" required></textarea></div>
+          <button class="btn" type="submit">Prepare Enquiry <span>↗</span></button>
+          <p class="form-note">This demo form prepares a WhatsApp enquiry. It will work after your WhatsApp number is added in the configuration.</p>
+          <div class="form-message" id="formMessage" role="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Min Yun Development. Built with purpose.</div>
+      <div class="footer-links"><a href="#services">Services</a><a href="#work">Portfolio</a><a href="#contact">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // SETUP: Replace these values before publishing.
+    // WhatsApp number format: country code + number, digits only (Malaysia example: 60123456789).
+    const SITE_CONFIG = {
+      whatsappNumber: "", // e.g. "60123456789"
+      emailAddress: ""    // e.g. "hello@example.com"
+    };
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    menuToggle.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(open));
+    });
+    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }));
+
+    document.getElementById("inquiryForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const message = [
+        "Hi Min Yun! I'd like to enquire about a project.",
+        "",
+        `Name: ${form.get("name")}`,
+        `Email: ${form.get("email")}`,
+        `Service: ${form.get("service")}`,
+        `Estimated budget: ${form.get("budget") || "Not specified"}`,
+        `Project details: ${form.get("details")}`
+      ].join("\n");
+
+      const feedback = document.getElementById("formMessage");
+      if (SITE_CONFIG.whatsappNumber.trim()) {
+        const url = `https://wa.me/${SITE_CONFIG.whatsappNumber.trim()}?text=${encodeURIComponent(message)}`;
+        window.open(url, "_blank", "noopener,noreferrer");
+        feedback.textContent = "Your enquiry has been prepared in WhatsApp. Please review and send it there.";
+      } else if (SITE_CONFIG.emailAddress.trim()) {
+        const subject = encodeURIComponent("New project enquiry — Min Yun Development");
+        window.location.href = `mailto:${SITE_CONFIG.emailAddress.trim()}?subject=${subject}&body=${encodeURIComponent(message)}`;
+        feedback.textContent = "Your email app should open with the enquiry prepared.";
+      } else {
+        feedback.textContent = "The form is ready. Add your WhatsApp number or email address in SITE_CONFIG near the bottom of index.html to receive enquiries.";
+      }
+      feedback.style.display = "block";
+    });
+  </script>
+</body>
+</html>
